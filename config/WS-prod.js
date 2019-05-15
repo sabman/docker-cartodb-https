@@ -1,5 +1,5 @@
 var config = {
-     environment: 'development'
+     environment: 'production'
     ,port: 8181
     ,host: '0.0.0.0'
     // Size of the threadpool which can be used to run user code and get notified in the loop thread
@@ -34,8 +34,8 @@ var config = {
     //  2. {{=it.user}}: will use the username as extraced from `user_from_host` or `base_url_detached`.
     //  3. {{=it.port}}: will use the `port` from this very same configuration file.
     ,resources_url_templates: {
-        http: 'http://cartodb.localhost/user/{{=it.user}}/api/v1/map',
-        https: 'http://cartodb.localhost/user/{{=it.user}}/api/v1/map'
+        http: 'http://sub.domain.com/user/{{=it.user}}/api/v1/map',
+        https: 'https://sub.domain.com/user/{{=it.user}}/api/v1/map'
     }
 
     // Maximum number of connections for one process
@@ -47,11 +47,11 @@ var config = {
     // or template instance map expires. Or: how long do you want
     // to be able to navigate the map without a reload ?
     // Defaults to 7200 (2 hours)
-    ,mapConfigTTL: 7200
+    ,mapConfigTTL: 720000
     // idle socket timeout, in milliseconds
     ,socket_timeout: 600000
     ,enable_cors: true
-    ,cache_enabled: false
+    ,cache_enabled: true
     ,log_format: ':req[X-Real-IP] :method :req[Host]:url :status :response-time ms -> :res[Content-Type] (:res[X-Tiler-Profiler])'
     // If log_filename is given logs will be written
     // there, in append mode. Otherwise stdout is used (default).
@@ -59,7 +59,7 @@ var config = {
     ,log_filename: undefined
     // Templated database username for authorized user
     // Supported labels: 'user_id' (read from redis)
-    ,postgres_auth_user: 'development_cartodb_user_<%= user_id %>'
+    ,postgres_auth_user: 'cartodb_user_<%= user_id %>'
     // Templated database password for authorized user
     // Supported labels: 'user_id', 'user_password' (both read from redis)
     ,postgres_auth_pass: '<%= user_password %>'
@@ -78,7 +78,7 @@ var config = {
         srid: 4326,
         */
         // max number of rows to return when querying data, 0 means no limit
-        row_limit: 65535,
+        row_limit: 0,
         simplify_geometries: true,
         use_overviews: true, // use overviews to retrieve raster
         /*
@@ -96,8 +96,8 @@ var config = {
     ,statsd: {
         host: 'localhost',
         port: 8125,
-        prefix: 'dev.',
-        cacheDns: true
+        prefix: ':host.', // could be hostname, better not containing dots
+        cacheDns: false
         // support all allowed node-statsd options
     }
     ,renderer: {
@@ -126,7 +126,7 @@ var config = {
           // the behaviour for that internal cache.
           metatileCache: {
               // Time an object must stay in the cache until is removed
-              ttl: 0,
+              ttl: 6000,
               // Whether an object must be removed after the first hit
               // Usually you want to use `true` here when ttl>0.
               deleteOnHit: false
@@ -166,7 +166,7 @@ var config = {
               // the same tile will result in an immediate response, however that will use a lot of more application
               // memory. If we want to enforce this behaviour we have to implement a cache eviction policy for the
               // internal cache.
-              cacheOnTimeout: true
+              cacheOnTimeout: false
           },
 
           geojson: {
@@ -191,7 +191,7 @@ var config = {
 
       },
       http: {
-          timeout: 2000, // the timeout in ms for a http tile request
+          timeout: 10000, // the timeout in ms for a http tile request
           proxy: undefined, // the url for a proxy server
           whitelist: [ // the whitelist of urlTemplates that can be used
               '.*', // will enable any URL
@@ -226,7 +226,7 @@ var config = {
             //  - running an standalone server without any dependency on external services
             inlineExecution: false,
             // where the SQL API is running, it will use a custom Host header to specify the username.
-            endpoint: 'http://127.0.0.1:8080/api/v2/sql/job',
+            endpoint: 'http://0.0.0.0:8080/api/v2/sql/job',
             // the template to use for adding the host header in the batch api requests
             hostHeaderTemplate: '{{=it.username}}.localhost.lan'
         },
@@ -283,8 +283,8 @@ var config = {
         maxFreeSockets: 256
     }
     ,varnish: {
-        host: 'localhost',
-        port: 6082, // the por for the telnet interface where varnish is listening to
+        host: '127.0.0.1',
+        port: 6082, // the port for the telnet interface where varnish is listening to
         http_port: 6081, // the port for the HTTP interface where varnish is listening to
         purge_enabled: false, // whether the purge/invalidation mechanism is enabled in varnish or not
         secret: 'xxx',

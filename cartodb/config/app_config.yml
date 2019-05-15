@@ -10,20 +10,20 @@ defaults: &defaults
     memory_limit:
   debug_assets: true
   mandatory_keys:     [layer_opts, sql_api, varnish_management, redis, session_domain]
-  session_domain:     'sub.domain.com'
+  session_domain:     'cartodb.ecoconnect.net'
   # If activated, urls will use usernames in format //SESSION_DOMAIN/user/USERNAME and ignore subdomains if present
   subdomainless_urls: true
-  http_port:           # 3000 # nil|integer. HTTP port to use when building urls. Leave empty to use default (80)
+  http_port:           3000 # 3000 # nil|integer. HTTP port to use when building urls. Leave empty to use default (80)
   https_port:          # nil|integer. HTTPS port to use when building urls. Leave empty to use default (443)
   secret_token:       '71c2b25921b84a1cb21c71503ab8fb23'
-  account_host:       'sub.domain.com'
+  account_host:       'cartodb.ecoconnect.net'
   # Here you can define other hosts different to account_host that also will be CORS enabled
   # cors_enabled_hosts:
   #   - example.com
   #   - foo.bar
   #   - carto.dev
   account_path:       '/account'
-  #vizjson_cache_domains: ['.localhost']
+  vizjson_cache_domains: ['.localhost']
   data_library:
     username:         'common-data'
     path:             '/data-library'
@@ -33,34 +33,33 @@ defaults: &defaults
   tiler:
     filter: 'mapnik'
     internal:
-      protocol:      'http'
-      domain:        ''
-      port:          '8181'
-      host:	     '0.0.0.0'	
-      verifycert:     false
+      protocol:      'https'
+      domain:        'cartodb.ecoconnect.net'
+      port:          '443'
+      verifycert:     true
     private:
       protocol:      'https'
-      domain:        'sub.domain.com'
+      domain:        'cartodb.ecoconnect.net'
       port:          '443'
-      verifycert:     false
+      verifycert:     true
     public:
       protocol:      'https'
-      domain:        'sub.domain.com'
+      domain:        'cartodb.ecoconnect.net'
       port:          '443'
-      verifycert:     false
+      verifycert:     true
   sql_api:
     private:
       protocol:   'https'
-      domain:     'sub.domain.com'
+      domain:     'cartodb.ecoconnect.net'
       endpoint:   '/api/v2/sql'
       port:       443
     public:
       protocol:   'https'
-      domain:     'sub.domain.com'
+      domain:     'cartodb.ecoconnect.net'
       endpoint:   '/api/v2/sql'
       port:       443
   api_requests_service_url: ''
-  developers_host:    'http://developers.sub.domain.com:3000'
+  developers_host:    'http://developers.cartodb.ecoconnect.net:3000'
   google_analytics:
     primary:          ''
     embeds:           ''
@@ -131,9 +130,8 @@ defaults: &defaults
     protocol: 'https'
     username: 'common-data'
     base_url: 'https://common-data.carto.com'
-    #base_url: 'https://sub.domain.com'
     format: 'gpkg'
-    generate_every: 3600
+    generate_every: 86400
   explore_api:
     username: ''
   # aggregation_tables:
@@ -148,7 +146,7 @@ defaults: &defaults
   reports:
     mail_to: ''
   mailer:
-    from: 'sub.domain.com <support@sub.domain.com>'
+    from: 'cartodb.ecoconnect.net <support@cartodb.ecoconnect.net>'
     address: ''
     port: ''
     user_name: ''
@@ -166,7 +164,7 @@ defaults: &defaults
     # 'warning' or 'error'
     trigger_verbose: true
   invalidation_service:
-    enabled: true
+    enabled: false
     host: '127.0.0.1'
     port: 3142
     retries: 5 # number of retries before considering failure
@@ -188,9 +186,8 @@ defaults: &defaults
     # secondary:
     #   host: '127.0.0.1'
   org_metadata_api:
-    #host: 'localhost.lan'
-    host: '127.0.0.1'
-    port: '3000'
+    host: 'cartodb.ecoconnec.net'
+    port: '443'
     username: "extension"
     password: "elephant"
     timeout: 10
@@ -299,12 +296,12 @@ defaults: &defaults
         interactivity:      "cartodb_id"
         debug:              false
         visible:            true
-        tiler_domain:       "sub.domain.com"
+        tiler_domain:       "cartodb.ecoconnect.net"
         tiler_port:         "443"
-        tiler_protocol:     "http"
-        sql_domain:         "sub.domain.com"
+        tiler_protocol:     "https"
+        sql_domain:         "cartodb.ecoconnect.net"
         sql_port:           "443"
-        sql_protocol:       "http"
+        sql_protocol:       "https"
         extra_params:       { cache_policy: 'persist' }
         tile_style_history: []
         style_version:      "2.1.1"
@@ -314,7 +311,7 @@ defaults: &defaults
       kind: "background"
       options: { color: '#ffffff' }
   cartodb_com_hosted: false
-  cartodb_central_domain_name: 'sub.domain.com'
+  cartodb_central_domain_name: 'cartodb.ecoconnect.net'
   aws:
     s3:
       access_key_id: "test"
@@ -331,7 +328,8 @@ defaults: &defaults
     #   max_size_in_bytes: 1048576 # Optional, default is 1 MB
     #   location: 'organization_assets' # Optional subdirectory for local assets, default is 'organization_assets'
   app_assets:
-    asset_host: "//sub.domain.com"
+    asset_host: "//cartodb-libs.global.ssl.fastly.net/cartodbui"
+    #asset_host: "//cartodb.ecoconnect.net"
   avatars:
     gravatar_enabled: true
     base_url: '/assets/unversioned/images/avatars'
@@ -759,7 +757,7 @@ test:
     port: 6335
   enforce_non_empty_layer_css: false
   api_requests_es_service:
-    url: "http://api-calls-service.sub.domain.com/search"
+    url: "http://api-calls-service.cartodb.ecoconnect.net/search"
     body: ""
   session_domain:     '.localhost.lan'
   subdomainless_urls: false
@@ -769,12 +767,3 @@ staging:
 
 production:
   <<: *defaults
-  varnish_management:
-    critical: false
-    host: '127.0.0.1'
-    port: 6082
-    purge_command: 'purge'
-    url_purge_command: 'url.purge'
-    retries: 5
-    timeout: 5
-

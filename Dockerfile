@@ -30,6 +30,8 @@ ENV DATASERVICES_VERSION=master
 ENV DATAERVICESAPI_VERSION=master
 #ENV OBSERVATORY_VERSION=1.9.0
 ENV OBSERVATORY_VERSION=master
+ENV RAILS_ENV=production
+
 
 RUN useradd -m -d /home/cartodb -s /bin/bash cartodb && \
   apt-get install -y -q \
@@ -134,6 +136,7 @@ RUN curl https://nodejs.org/dist/v10.15.3/node-v10.15.3-linux-x64.tar.xz |tar -J
 
 # Setting PostgreSQL
 RUN sed -i 's/\(peer\|md5\)/trust/' /etc/postgresql/10/main/pg_hba.conf && \
+    sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/10/main/postgresql.conf && \
     service postgresql start && \
     createuser publicuser --no-createrole --no-createdb --no-superuser -U postgres && \
     createuser tileuser --no-createrole --no-createdb --no-superuser -U postgres && \
@@ -214,10 +217,10 @@ RUN cd / && git clone --recursive https://github.com/CartoDB/observatory-extensi
   PGUSER=postgres make deploy
 
 # Copy confs
-ADD ./config/CartoDB-dev.js \
-      /CartoDB-SQL-API/config/environments/development.js
-ADD ./config/WS-dev.js \
-      /Windshaft-cartodb/config/environments/development.js
+ADD ./config/CartoDB-prod.js \
+      /CartoDB-SQL-API/config/environments/production.js
+ADD ./config/WS-prod.js \
+      /Windshaft-cartodb/config/environments/production.js
 ADD ./config/app_config.yml /cartodb/config/app_config.yml
 ADD ./config/database.yml /cartodb/config/database.yml
 ADD ./create_dev_user /cartodb/script/create_dev_user
@@ -240,7 +243,9 @@ RUN mkdir -p /cartodb/log && touch /cartodb/log/users_modifications && \
     chmod +x /cartodb/script/fill_geocoder.sh && \
     chmod +x /cartodb/script/sync_tables_trigger.sh
 
-EXPOSE 80
+RUN apt-get update && apt -q -y install nano 
+
+EXPOSE 3000 8080 8181
 
 ENV GDAL_DATA /usr/share/gdal/2.2
 

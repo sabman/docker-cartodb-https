@@ -16,10 +16,10 @@ module.exports.node_port    = 8080;
 module.exports.node_host    = '0.0.0.0';
 // idle socket timeout, in miliseconds
 module.exports.node_socket_timeout    = 600000;
-module.exports.environment  = 'development';
-module.exports.db_base_name = 'cartodb_dev_user_<%= user_id %>_db';
+module.exports.environment  = 'production';
+module.exports.db_base_name = 'cartodb_user_<%= user_id %>_db';
 // Supported labels: 'user_id' (read from redis)
-module.exports.db_user      = 'development_cartodb_user_<%= user_id %>';
+module.exports.db_user      = 'cartodb_user_<%= user_id %>';
 // Supported labels: 'user_id', 'user_password' (both read from redis)
 module.exports.db_user_pass = '<%= user_password %>'
 // Name of the anonymous PostgreSQL user
@@ -73,8 +73,8 @@ module.exports.db_pool_reapInterval = 1000;
 module.exports.redis_host   = '127.0.0.1';
 module.exports.redis_port   = 6379;
 module.exports.redisPool    = 50;
-module.exports.redisIdleTimeoutMillis   = 100;
-module.exports.redisReapIntervalMillis  = 10;
+module.exports.redisIdleTimeoutMillis   = 10000;
+module.exports.redisReapIntervalMillis  = 1000;
 module.exports.redisLog     = false;
 // Max number of entries in the query tables cache
 module.exports.tableCacheMax = 8192;
@@ -88,7 +88,7 @@ module.exports.ogr2ogrCommand = 'ogr2ogr';
 module.exports.statsd = {
   host: 'localhost',
   port: 8125,
-  prefix: 'dev.:host.',
+  prefix: 'prod.:host.',
   cacheDns: true
   // support all allowed node-statsd options
 };
