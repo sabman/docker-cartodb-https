@@ -7,7 +7,7 @@ echo "CREATE SCHEMA gps;" | psql -U postgres $ORGANIZATION_DB
 echo "CREATE SERVER remotedb FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host '10.0.0.1', port '5432', dbname 'somedb');" | psql -U postgres $ORGANIZATION_DB
 echo "CREATE FOREIGN TABLE gps.places (id integer NOT NULL, location geometry) SERVER remotedb OPTIONS (schema_name 'gps', table_name 'places');"
 
-for user in `echo "SELECT 'cartodb_user_' || id FROM users WHERE organization_id = (SELECT id FROM organizations WHERE name='qcbs')" | psql -U postgres -t carto_db_production`
+for user in `echo "SELECT 'cartodb_user_' || id FROM users WHERE organization_id = (SELECT id FROM organizations WHERE name='example')" | psql -U postgres -t carto_db_production`
 do
   echo "GRANT USAGE ON SCHEMA gps TO ${user};" | psql -U postgres $ORGANIZATION_DB
   echo "GRANT SELECT ON gps.places TO ${user};" | psql -U postgres $ORGANIZATION_DB
