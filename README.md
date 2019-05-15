@@ -4,7 +4,7 @@ docker-cartodb-https
 [![](https://images.microbadger.com/badges/image/sverhoeven/cartodb.svg)](https://microbadger.com/#/images/sverhoeven/cartodb "Get your own image badge on microbadger.com")
 [![](https://images.microbadger.com/badges/version/sverhoeven/cartodb.svg)](https://hub.docker.com/r/sverhoeven/cartodb/)
 
-This is an attempt to have a fully working https Cartodb Docker version of the https://hub.docker.com/r/sverhoeven/cartodb/ Docker solution as of May 2019. 
+This is an attempt to have a fully working https Cartodb Docker version of the https://hub.docker.com/r/sverhoeven/cartodb/ Docker solution as of May 2019 with the carto_db_production database and the Production environment. 
 
 The default login is prod/pass1234. You may want to change it when you run it for the outside.
 
