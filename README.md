@@ -28,12 +28,14 @@ Persistent data
 
 To persist the PostgreSQL data, the PostGreSQL data dir (/var/lib/postgresql) must be persisted outside the Cartodb Docker container.
 
-One solution for this is to run the container, copy the /var/lib/postgresql/ data to the host in a folder called ~/cartodb_pgdata delete the container and then re-run it with ```
-sudo docker run -d -p 3000:3000 -p 8080:8080 -p 8181:8181 -h sub.domain.com -v $PWD/cartodb_pgdata:/var/lib/postgresql 
+One solution for this is to run the container, copy the /var/lib/postgresql/ data to the host in a folder called ~/cartodb_pgdata delete the container and then re-run it with 
+
+```
+docker run -d -p 3000:3000 -p 8080:8080 -p 8181:8181 -h sub.domain.com -v $PWD/cartodb_pgdata:/var/lib/postgresql --restart unless-stopped cartodb-https
 ```
 
+
 After this the CartoDB container will have a database that stays filled after restarts.
-The CartoDB container can be started with
 
 
 Geocoder
