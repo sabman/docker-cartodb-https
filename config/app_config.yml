@@ -10,13 +10,13 @@ defaults: &defaults
     memory_limit:
   debug_assets: true
   mandatory_keys:     [layer_opts, sql_api, varnish_management, redis, session_domain]
-  session_domain:     'sub.domain.com'
+  session_domain:     'maps.driftwoodenergy.com'
   # If activated, urls will use usernames in format //SESSION_DOMAIN/user/USERNAME and ignore subdomains if present
   subdomainless_urls: true
   http_port:           # 3000 # nil|integer. HTTP port to use when building urls. Leave empty to use default (80)
   https_port:          # nil|integer. HTTPS port to use when building urls. Leave empty to use default (443)
   secret_token:       '71c2b25921b84a1cb21c71503ab8fb23'
-  account_host:       'sub.domain.com'
+  account_host:       'maps.driftwoodenergy.com'
   # Here you can define other hosts different to account_host that also will be CORS enabled
   # cors_enabled_hosts:
   #   - example.com
@@ -40,27 +40,27 @@ defaults: &defaults
       verifycert:     false
     private:
       protocol:      'https'
-      domain:        'sub.domain.com'
+      domain:        'maps.driftwoodenergy.com'
       port:          '443'
       verifycert:     false
     public:
       protocol:      'https'
-      domain:        'sub.domain.com'
+      domain:        'maps.driftwoodenergy.com'
       port:          '443'
       verifycert:     false
   sql_api:
     private:
       protocol:   'https'
-      domain:     'sub.domain.com'
+      domain:     'maps.driftwoodenergy.com'
       endpoint:   '/api/v2/sql'
       port:       443
     public:
       protocol:   'https'
-      domain:     'sub.domain.com'
+      domain:     'maps.driftwoodenergy.com'
       endpoint:   '/api/v2/sql'
       port:       443
   api_requests_service_url: ''
-  developers_host:    'http://developers.sub.domain.com:3000'
+  developers_host:    'http://developers.maps.driftwoodenergy.com:3000'
   google_analytics:
     primary:          ''
     embeds:           ''
@@ -131,7 +131,7 @@ defaults: &defaults
     protocol: 'https'
     username: 'common-data'
     base_url: 'https://common-data.carto.com'
-    #base_url: 'https://sub.domain.com'
+    #base_url: 'https://maps.driftwoodenergy.com'
     format: 'gpkg'
     generate_every: 3600
   explore_api:
@@ -148,7 +148,7 @@ defaults: &defaults
   reports:
     mail_to: ''
   mailer:
-    from: 'sub.domain.com <support@sub.domain.com>'
+    from: 'maps.driftwoodenergy.com <support@maps.driftwoodenergy.com>'
     address: ''
     port: ''
     user_name: ''
@@ -299,10 +299,10 @@ defaults: &defaults
         interactivity:      "cartodb_id"
         debug:              false
         visible:            true
-        tiler_domain:       "sub.domain.com"
+        tiler_domain:       "maps.driftwoodenergy.com"
         tiler_port:         "443"
         tiler_protocol:     "http"
-        sql_domain:         "sub.domain.com"
+        sql_domain:         "maps.driftwoodenergy.com"
         sql_port:           "443"
         sql_protocol:       "http"
         extra_params:       { cache_policy: 'persist' }
@@ -314,7 +314,7 @@ defaults: &defaults
       kind: "background"
       options: { color: '#ffffff' }
   cartodb_com_hosted: false
-  cartodb_central_domain_name: 'sub.domain.com'
+  cartodb_central_domain_name: 'maps.driftwoodenergy.com'
   aws:
     s3:
       access_key_id: "test"
@@ -331,7 +331,7 @@ defaults: &defaults
     #   max_size_in_bytes: 1048576 # Optional, default is 1 MB
     #   location: 'organization_assets' # Optional subdirectory for local assets, default is 'organization_assets'
   app_assets:
-    asset_host: "//sub.domain.com"
+    asset_host: "//maps.driftwoodenergy.com"
   avatars:
     gravatar_enabled: true
     base_url: '/assets/unversioned/images/avatars'
@@ -759,7 +759,7 @@ test:
     port: 6335
   enforce_non_empty_layer_css: false
   api_requests_es_service:
-    url: "http://api-calls-service.sub.domain.com/search"
+    url: "http://api-calls-service.maps.driftwoodenergy.com/search"
     body: ""
   session_domain:     '.localhost.lan'
   subdomainless_urls: false
