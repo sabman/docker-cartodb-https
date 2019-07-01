@@ -244,7 +244,7 @@ RUN mkdir -p /cartodb/log && touch /cartodb/log/users_modifications && \
     chmod +x /cartodb/script/sync_tables_trigger.sh
 
 RUN add-apt-repository ppa:certbot/certbot
-RUN apt-get update && apt -q -y install nano && apt -q -y install python-certbot-nginx
+RUN apt-get update && apt -q -y install nano && apt -q -y install python-certbot-nginx && apt -q -y install openssl
 
 EXPOSE 3000 8080 8181
 
