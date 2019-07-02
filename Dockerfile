@@ -242,9 +242,9 @@ RUN mkdir -p /cartodb/log && touch /cartodb/log/users_modifications && \
 	service postgresql stop && service redis-server stop && \
     chmod +x /cartodb/script/fill_geocoder.sh && \
     chmod +x /cartodb/script/sync_tables_trigger.sh
+RUN mkdir .ssh 
+RUN apt-get update && apt -q -y install nano && apt -q -y install awscli
 
-RUN add-apt-repository ppa:certbot/certbot
-RUN apt-get update && apt -q -y install nano && apt -q -y install python-certbot-nginx && apt -q -y install openssl
 
 EXPOSE 3000 8080 8181
 

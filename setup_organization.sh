@@ -1,7 +1,7 @@
-ORGANIZATION_NAME="example"
-USERNAME="admin4example"
-EMAIL="admin@example.com"
-PASSWORD="pass1234"
+ORGANIZATION_NAME=$CARTO_ORG_NAME
+USERNAME=$CARTO_ORG_USERNAME
+EMAIL=$CARTO_ORG_EMAIL
+PASSWORD=$CARTO_ORG_PASSWORD
 
 bundle exec rake cartodb:db:create_user EMAIL="${EMAIL}" PASSWORD="${PASSWORD}" SUBDOMAIN="${USERNAME}"
 bundle exec rake cartodb:db:set_unlimited_table_quota["${USERNAME}"]
