@@ -64,3 +64,26 @@ docker build -t=cartodb-https docker-cartodb-https/
 ```
 
 The build uses the master branches of the [CartoDB GitHub repositories](https://github.com/CartoDB). A fresh build may fail when code requires newer dependencies then the Dockerfile provides or when code is not stable at the moment of building.
+
+Driftwood Specific:
+----------------------
+2 SSH Keys need to be available for copying from S3 into /.ssh upon build before start NGINX
+s3://carto-db-config/deomaps.crt
+s3://carto-db-config/deomaps.key
+
+ENV Variables need to be set on host and passed during build and when running the container.
+
+$FQDN # Fully qualified domain name (maps.driftwoodenergy.com)
+$CARTO_USER_SUBDOMAIN #INITIAL USER ACCOUNT
+$CARTO_USER_PW #INITIAL USER ACCOUNT
+$CARTO_USER_ADMIN_PW #INITIAL USER ACCOUNT
+$CARTO_USER_EMAIL #INITIAL USER ACCOUNT
+$CARTO_GEOCODER_PW #INITIAL GEOCODER ACCOUNT
+$CARTO_GEOCODER_ADMIN_PW #INITIAL GEOCODER ACCOUNT
+$CARTO_GEOCODER_EMAIL #INITIAL GEOCODER ACCOUNT
+$CARTO_ORG_NAME #INITIAL ORG
+$CARTO_ORG_USERNAME #INITIAL ORG
+$CARTO_ORG_EMAIL #INITIAL ORG
+$CARTO_ORG_PASSWORD #INITIAL ORG
+
+
