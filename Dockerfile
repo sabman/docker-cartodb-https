@@ -228,6 +228,11 @@ RUN cd / && git clone --recursive https://github.com/CartoDB/observatory-extensi
   git checkout $OBSERVATORY_VERSION && \
   PGUSER=postgres make deploy
 
+#Setup SSL Folder and Copy Keys
+RUN mkdir /.ssh
+ADD ./config/sample.domain.com.cert /.ssh/sample.domain.com.cert
+ADD ./config/sample.domain.com.key /.ssh/sample.domain.com.key
+
 # Copy confs
 ADD ./config/CartoDB-prod.js \
       /CartoDB-SQL-API/config/environments/production.js
@@ -254,10 +259,7 @@ RUN mkdir -p /cartodb/log && touch /cartodb/log/users_modifications && \
 	service postgresql stop && service redis-server stop && \
     chmod +x /cartodb/script/fill_geocoder.sh && \
     chmod +x /cartodb/script/sync_tables_trigger.sh
-RUN mkdir .ssh 
-ADD ./sample.domain.com.cert /.ssh/sample.domain.com.cert
-ADD ./sample.domain.com.key /.ssh/sample.domain.com.key
-
+ 
 RUN apt-get update && apt -q -y install nano && apt -q -y install awscli
 
 #Update Domain Names Inside Confs
