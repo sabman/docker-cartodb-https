@@ -28,7 +28,7 @@ psql -U postgres -d $GEOCODER_DB -c "BEGIN;GRANT EXECUTE ON ALL FUNCTIONS IN SCH
 # dev user
 USER_DB=`echo "SELECT database_name FROM users WHERE username='$CARTO_USER_SUBDOMAIN'" | psql -U postgres -t carto_db_production`
 echo "CREATE EXTENSION cdb_dataservices_client;" | psql -U postgres $USER_DB
-echo "SELECT CDB_Conf_SetConf('user_config', '{"'"is_organization"'": false, "'"entity_name"'": "'"$CARTO_USER_SUBDOMAIN"'"}');" | psql -U postgres $USER_DB
+echo "SELECT CDB_Conf_SetConf('user_config', '{"'"is_organization"'": false, "'"entity_name"'": "'$CARTO_USER_SUBDOMAIN'"}');" | psql -U postgres $USER_DB
 echo -e "SELECT CDB_Conf_SetConf('geocoder_server_config', '{ \"connection_str\": \"host=localhost port=5432 dbname=${GEOCODER_DB# } user=postgres\"}');" | psql -U postgres $USER_DB
 bundle exec  rake cartodb:services:set_user_quota['$CARTO_USER_SUBDOMAIN',geocoding,100000]
 
