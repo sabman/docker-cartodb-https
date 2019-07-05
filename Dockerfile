@@ -228,6 +228,10 @@ RUN cd / && git clone --recursive https://github.com/CartoDB/observatory-extensi
   git checkout $OBSERVATORY_VERSION && \
   PGUSER=postgres make deploy
 
+#Update Domain Names Inside Confs
+RUN sed -i 's/domain.sample.com/'"$FQDN"'/g' ./config/app_config.yml
+RUN sed -i 's/domain.sample.com/'"$FQDN"'/g' ./config/WS-prod.js
+
 # Copy confs
 ADD ./config/CartoDB-prod.js \
       /CartoDB-SQL-API/config/environments/production.js
@@ -256,6 +260,8 @@ RUN mkdir -p /cartodb/log && touch /cartodb/log/users_modifications && \
     chmod +x /cartodb/script/sync_tables_trigger.sh
 RUN mkdir .ssh 
 RUN apt-get update && apt -q -y install nano && apt -q -y install awscli
+
+
 
 
 EXPOSE 3000 8080 8181
