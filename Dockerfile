@@ -258,8 +258,8 @@ RUN mkdir .ssh
 RUN apt-get update && apt -q -y install nano && apt -q -y install awscli
 
 #Update Domain Names Inside Confs
-RUN sed -i 's/domain.sample.com/'"$FQDN"'/g' /cartodb/config/app_config.yml
-RUN sed -i 's/domain.sample.com/'"$FQDN"'/g' /Windshaft-cartodb/config/environments/production.js
+RUN sed -i 's/sample.domain.com/'"$FQDN"'/g' /cartodb/config/app_config.yml
+RUN sed -i 's/sample.domain.com/'"$FQDN"'/g' /Windshaft-cartodb/config/environments/production.js
 
 
 
