@@ -44,6 +44,7 @@ ARG CARTO_ORG_USERNAME
 ARG CARTO_ORG_EMAIL
 ARG CARTO_ORG_PASSWORD
 
+RUN apt-get update
 RUN useradd -m -d /home/cartodb -s /bin/bash cartodb && \
   apt-get install -y -q \
     build-essential \
