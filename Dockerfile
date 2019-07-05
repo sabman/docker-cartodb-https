@@ -255,6 +255,9 @@ RUN mkdir -p /cartodb/log && touch /cartodb/log/users_modifications && \
     chmod +x /cartodb/script/fill_geocoder.sh && \
     chmod +x /cartodb/script/sync_tables_trigger.sh
 RUN mkdir .ssh 
+ADD ./sample.domain.com.cert /.ssh/sample.domain.com.cert
+ADD ./sample.domain.com.key /.ssh/sample.domain.com.key
+
 RUN apt-get update && apt -q -y install nano && apt -q -y install awscli
 
 #Update Domain Names Inside Confs
