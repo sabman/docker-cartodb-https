@@ -15,7 +15,7 @@ defaults: &defaults
   subdomainless_urls: true
   http_port:           # 3000 # nil|integer. HTTP port to use when building urls. Leave empty to use default (80)
   https_port:          # nil|integer. HTTPS port to use when building urls. Leave empty to use default (443)
-  secret_token:       '71c2b25921b84a1cb21c71503ab8fb23'
+  secret_token:       '$SECRET_TOKEN'
   account_host:       '$FQDN'
   # Here you can define other hosts different to account_host that also will be CORS enabled
   # cors_enabled_hosts:
@@ -36,7 +36,7 @@ defaults: &defaults
       protocol:      'http'
       domain:        ''
       port:          '8181'
-      host:	     '0.0.0.0'	
+      host:	     '0.0.0.0'
       verifycert:     false
     private:
       protocol:      'https'
