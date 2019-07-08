@@ -43,6 +43,9 @@ ARG CARTO_ORG_NAME
 ARG CARTO_ORG_USERNAME
 ARG CARTO_ORG_EMAIL
 ARG CARTO_ORG_PASSWORD
+ARG SAMPLE_BAR_PROVIDER
+ARG MAP_BAR_API_KEY
+
 
 RUN apt-get update
 RUN useradd -m -d /home/cartodb -s /bin/bash cartodb && \
@@ -265,7 +268,8 @@ RUN apt-get update && apt -q -y install nano && apt -q -y install awscli
 #Update Domain Names Inside Confs
 RUN sed -i 's/sample.domain.com/'"$FQDN"'/g' /cartodb/config/app_config.yml
 RUN sed -i 's/sample.domain.com/'"$FQDN"'/g' /Windshaft-cartodb/config/environments/production.js
-
+RUN sed -i 's/SAMPLE_BAR_PROVIDER/'"$SAMPLE_BAR_PROVIDER"'/g' /cartodb/config/app_config.yml
+RUN sed -i 's/MAP_BAR_API_KEY/'"$MAP_BAR_API_KEY"'/g' /cartodb/config/app_config.yml
 
 
 EXPOSE 3000 8080 8181
