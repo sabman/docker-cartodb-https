@@ -169,17 +169,17 @@ defaults: &defaults
     timeout: 5
     # 'warning' or 'error'
     trigger_verbose: true
-  invalidation_service:
-    enabled: true
-    host: '127.0.0.1'
-    port: 3142
-    retries: 5 # number of retries before considering failure
-    critical: false # either the failure is considered an error or a warning
-    timeout: 5 # socket timeout
-    trigger_verbose: true
+  #invalidation_service:
+  #  enabled: true
+  #  host: '127.0.0.1'
+  #  port: 3142
+  #  retries: 5 # number of retries before considering failure
+  #  critical: false # either the failure is considered an error or a warning
+  #  timeout: 5 # socket timeout
+  #  trigger_verbose: true
   redis:
     host: '127.0.0.1'
-    port: 6379
+    port: 6379te
     connect_timeout: 2
     read_timeout: 3
     write_timeout: 5
@@ -321,13 +321,13 @@ defaults: &defaults
   cartodb_central_domain_name: sample.domain.com
   aws:
     s3:
-      access_key_id: "test"
-      secret_access_key: "test"
-      region: ''
+      access_key_id: "s3keyid"
+      secret_access_key: "s3accesskey"
+      region: 's3region'
   assets:
-    s3_bucket_name: "tests"
+    s3_bucket_name: "s3bucketname"
     max_file_size: 5242880 # 5.megabytes
-    region: ''
+    region: 's3region'
     # Example for configuring organization assets.
     # If 'aws.s3' configuration exists, S3 is used for storing assets and 'assets.organization.bucket' value is required. If 'aws.s3' config is not present, assets will be stored locally.
     # organization:
