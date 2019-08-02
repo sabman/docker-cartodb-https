@@ -270,7 +270,10 @@ RUN sed -i 's/sample.domain.com/'"$FQDN"'/g' /cartodb/config/app_config.yml
 RUN sed -i 's/sample.domain.com/'"$FQDN"'/g' /Windshaft-cartodb/config/environments/production.js
 RUN sed -i 's/SAMPLE_BAR_PROVIDER/'"$SAMPLE_BAR_PROVIDER"'/g' /cartodb/config/app_config.yml
 RUN sed -i 's/MAP_BAR_API_KEY/'"$MAP_BAR_API_KEY"'/g' /cartodb/config/app_config.yml
-
+RUN sed -i 's/S3KEYID/'"$S3KEYID"'/g' /cartodb/config/app_config.yml
+RUN sed -i 's/S3ACCESSKEY/'"$S3ACCESSKEY"'/g' /cartodb/config/app_config.yml
+RUN sed -i 's/S3REGION/'"$S3REGION"'/g' /cartodb/config/app_config.yml
+RUN sed -i 's/S3BUCKETNAME/'"$S3BUCKETNAME"'/g' /cartodb/config/app_config.yml
 
 EXPOSE 3000 8080 8181
 
