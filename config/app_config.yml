@@ -179,7 +179,7 @@ defaults: &defaults
   #  trigger_verbose: true
   redis:
     host: '127.0.0.1'
-    port: 6379te
+    port: 6379
     connect_timeout: 2
     read_timeout: 3
     write_timeout: 5
