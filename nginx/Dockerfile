@@ -1,6 +1,6 @@
 
 # output container
-FROM nginx:1.16.0-alpine
+FROM nginx:1.18-alpine
 
 
 
